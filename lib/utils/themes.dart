@@ -13,11 +13,13 @@ const Color darkHeaderClr = Color(0xff424242);
 
 class Themes {
   static final light = ThemeData(
+    backgroundColor: Colors.white,
     primaryColor: bluishClr,
     brightness: Brightness.light
   );
 
   static final dark = ThemeData(
+    backgroundColor: darkGryClr,
     primaryColor: darkGryClr,
     brightness: Brightness.dark
   );
@@ -30,7 +32,7 @@ class ThemeService {
   _saveThemeToBox(bool isDarkMode) => _box.write(_key, isDarkMode);
 
   bool _loadThemeFromBox() => _box.read(_key)?? false;
-  ThemeMode get Theme => _loadThemeFromBox()?ThemeMode.dark:ThemeMode.light;
+  ThemeMode get theme => _loadThemeFromBox()?ThemeMode.dark:ThemeMode.light;
 
   void switchTheme(){
     Get.changeThemeMode(_loadThemeFromBox()?ThemeMode.light:ThemeMode.dark);
