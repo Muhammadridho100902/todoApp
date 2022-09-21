@@ -22,4 +22,15 @@ class TaskController extends GetxController {
       tasks.map((data) => new Task.fromjson(data)).toList(),
     );
   }
+
+  void delete(Task task) {
+    DBHelper.delete(task);
+    getTasks();
+  }
+
+  void markTaskCompleted(int id)async{
+    await DBHelper.update(id);
+    getTasks();
+  }
+
 }

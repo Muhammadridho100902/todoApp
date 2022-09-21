@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:todoapp_get_storage/controller/task_controller.dart';
 import 'package:todoapp_get_storage/utils/themes.dart';
 import 'package:todoapp_get_storage/views/add_task.dart';
 import 'package:todoapp_get_storage/widgets/button.dart';
 
-class AddTaskBar extends StatelessWidget {
+class AddTaskBar extends StatefulWidget {
   const AddTaskBar({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<AddTaskBar> createState() => _AddTaskBarState();
+}
+
+class _AddTaskBarState extends State<AddTaskBar> {
+  final _taskConroller = Get.put(TaskController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,13 @@ class AddTaskBar extends StatelessWidget {
               )
             ],
           ),
-          MyButton(label: "+Add Task", onTap: ()=> Get.to(const AddTaskPage()))
+          MyButton(
+            label: "+Add Task",
+            onTap: () async {
+              await Get.to(()=> const AddTaskPage());
+              _taskConroller.getTasks();
+            },
+          )
         ],
       ),
     );
