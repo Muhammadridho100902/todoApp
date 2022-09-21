@@ -5,6 +5,7 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:todoapp_get_storage/models/task.dart';
+import 'package:todoapp_get_storage/views/notify_page.dart';
 
 class NotifyHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -48,15 +49,15 @@ class NotifyHelper {
       title,
       body,
       platformChannelSpecifics,
-      payload: 'It could be anything you pass',
+      payload: title,
     );
   }
 
   scheduledNotification(int hour, int minutes, Task task) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      0,
-      'scheduled title',
-      'theme changes 5 seconds ago',
+      task.id!.toInt(),
+      task.title,
+      task.note,
       _converTime(hour, minutes),
       // tz.TZDateTime.now(tz.local).add(Duration(seconds: newTime)),
       const NotificationDetails(
@@ -67,7 +68,7 @@ class NotifyHelper {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
-      payload: 'It could be anything you pass',
+      payload: "${task.title}|" + "${task.note}|"
     );
   }
 
@@ -112,9 +113,12 @@ class NotifyHelper {
     } else {
       // print('Notification Done');
     }
-    Get.to(() => Container(
-          color: Colors.white,
-        ));
+
+    if (payload == "Theme Changed") {
+      
+    } else{
+      Get.to(()=> NotifiedPage(label: payload));
+    }
   }
 
   Future onDidReceiveLocalNotification(

@@ -120,7 +120,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
               TextInputWidget(
                 text: "Remind",
-                hint: "${_selectedRemind} minutes early",
+                hint: "$_selectedRemind minutes early",
                 widget: DropdownButton(
                     underline: Container(
                       height: 0,
@@ -198,7 +198,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   _addTaskToDb()async{
-   int value = await _taskController.addTask(
+   await _taskController.addTask(
       task:Task(
       note: _noteController.text,
       title: _titleController.text,
@@ -211,7 +211,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
       isCompleted: 0,
     )
     ); 
-    print("my id is " + "$value");
   }
 
   _colorPallete() {
@@ -262,7 +261,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
     var pickedTime = await _showTimePicker();
     String _formatedTime = pickedTime.format(context);
     if (pickedTime == null) {
-      print("Time Cancek");
     } else if (isStartTime == true) {
       setState(() {
         _startTime = _formatedTime;
@@ -302,7 +300,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
         _selectedDate = _pickerDate;
       });
     } else {
-      print("It can't be null");
     }
   }
 

@@ -3,8 +3,8 @@ import 'package:todoapp_get_storage/models/task.dart';
 
 class DBHelper {
   static Database? _db;
-  static final int _version = 1;
-  static final String _tableName = "task";
+  static const int _version = 1;
+  static const String _tableName = "task";
 
   static Future<void> initDb() async {
     if (_db != null) {
@@ -14,7 +14,6 @@ class DBHelper {
       String _path = await getDatabasesPath() + 'task.db';
       _db =
           await openDatabase(_path, version: _version, onCreate: (db, version) {
-        print("Creating a new one");
         return db.execute(
           "CREATE TABLE $_tableName("
           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -31,12 +30,10 @@ class DBHelper {
   }
 
   static Future <int> insert(Task? task) async{
-    print("Insert function called");
     return await _db?.insert(_tableName, task!.toJson())?? 1;
   }
 
   static Future<List<Map<String, dynamic>>> query() async {
-    print("Quary function called");
     return await _db!.query(_tableName);
   }
 

@@ -5,7 +5,7 @@ import 'package:todoapp_get_storage/utils/themes.dart';
 
 class TaskTile extends StatelessWidget {
   final Task? task;
-  TaskTile(this.task, {Key? key}) : super(key: key);
+  const TaskTile(this.task, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
